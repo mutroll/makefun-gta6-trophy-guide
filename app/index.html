@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Ledger — GTA VI Trophy Guide &amp; Tracker</title>
+<meta name="description" content="The offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5: official names, descriptions and grades, a checklist that saves in your browser, a roadmap to the platinum, and a cited guide for every trophy.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; works fully offline</p>
+      <h1>Leonida Ledger</h1>
+      <p class="subtitle">Every trophy, tracked. The best offline guide to GTA VI&rsquo;s 55 trophies — official names, descriptions and grades, a checklist that saves in your browser, a roadmap to the platinum, and a guide to each trophy in our own words, with its sources named.</p>
+    </div>
+    <div class="progress-card" id="progressCard" aria-live="polite">
+      <p class="progress-big"><span id="earnedCount">0</span><span class="progress-of"> / 55 earned</span></p>
+      <div class="progress-bar" role="progressbar" aria-label="Trophies earned" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" id="progressBar"><span id="progressFill"></span></div>
+      <p class="progress-grades" id="gradeCounts"></p>
+      <p class="progress-next" id="nextUp"></p>
+    </div>
+  </div>
+  <nav class="tabs" aria-label="Sections">
+    <a href="#/" data-route="" class="tab" id="tabTracker">Tracker</a>
+    <a href="#/roadmap" data-route="roadmap" class="tab" id="tabRoadmap">Roadmap to the Platinum</a>
+    <a href="#/missables" data-route="missables" class="tab" id="tabMissables">Missables</a>
+  </nav>
+</header>
+
+<main>
+  <section id="viewTracker" class="view">
+    <div class="toolbar" role="search">
+      <label class="search-box">Search trophies
+        <input id="search" type="search" placeholder="Name, description or guide text…" autocomplete="off">
+      </label>
+      <label>Grade
+        <select id="gradeFilter">
+          <option value="all">All grades</option>
+          <option value="platinum">Platinum</option>
+          <option value="gold">Gold</option>
+          <option value="silver">Silver</option>
+          <option value="bronze">Bronze</option>
+        </select>
+      </label>
+      <label>Show
+        <select id="earnedFilter">
+          <option value="all">All trophies</option>
+          <option value="remaining">Remaining only</option>
+          <option value="earned">Earned only</option>
+        </select>
+      </label>
+      <label class="check"><input id="spoilerToggle" type="checkbox"> Hide story spoilers</label>
+      <span class="toolbar-spacer"></span>
+      <button id="exportBtn" type="button">Export progress</button>
+      <label class="import-btn">Import progress
+        <input id="importFile" type="file" accept="application/json,.json">
+      </label>
+      <button id="resetBtn" type="button" class="quiet">Reset</button>
+    </div>
+    <div class="kind-chips" id="kindChips" role="group" aria-label="Filter by kind"></div>
+    <p class="result-line" id="resultLine"></p>
+    <div class="tracker-grid">
+      <ol class="trophy-list" id="trophyList"></ol>
+      <aside class="detail" id="detailPane" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section id="viewRoadmap" class="view" hidden>
+    <div class="facts-strip" id="factsStrip"></div>
+    <div id="roadmapStages"></div>
+  </section>
+
+  <section id="viewMissables" class="view" hidden>
+    <div id="missablesBody"></div>
+  </section>
+</main>
+
+<footer>
+  <p>Names and descriptions are the official ones as PlayStation publishes them (Exophase / PSNProfiles, 18 Nov 2026). Every guide is written in this guide&rsquo;s own words from the sources named beside it — PowerPyx&rsquo;s GTA 6 Trophy Guide &amp; Roadmap first among them — and checked 19 Nov 2026. Five trophy methods were still unconfirmed at launch and are marked as such, not guessed.</p>
+  <p>This guide makes no network request: it loads only its own files, and the source links beside each guide open only when you follow them. No Rockstar Games logo, artwork or game screenshots are used. An unofficial fan guide, not affiliated with Rockstar Games or PlayStation.</p>
+  <p class="foot-links">Sources: <a href="https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/">PowerPyx — GTA 6 Trophy Guide &amp; Roadmap</a> &middot; <a href="https://www.exophase.com/game/grand-theft-auto-vi-psn/trophies/">Exophase — GTA VI trophies</a> &middot; <a href="https://psnprofiles.com/trophies/43531-grand-theft-auto-vi">PSNProfiles — GTA VI trophies</a> &middot; <a href="https://www.keengamer.com/articles/guides/gta-6-trophy-guide-platinum-roadmap-all-55-trophies/">KeenGamer — GTA 6 Trophy Guide</a></p>
+</footer>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
