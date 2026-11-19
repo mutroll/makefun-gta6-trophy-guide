@@ -4,8 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leonida Ledger — GTA VI Trophy Guide &amp; Tracker</title>
-<meta name="description" content="The offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5: official names, descriptions and grades, a checklist that saves in your browser, a roadmap to the platinum, and a cited guide for every trophy.">
+<meta name="description" content="The offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5: official names, descriptions and grades, a checklist that saves in your browser, a personal Next-up planner, a roadmap to the platinum, and a cited guide for every trophy.">
 <link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='7' fill='%23d9482b'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='%23fff7f2' font-family='Georgia'%3EL%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 <header class="masthead">
@@ -13,17 +14,19 @@
     <div>
       <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; works fully offline</p>
       <h1>Leonida Ledger</h1>
-      <p class="subtitle">Every trophy, tracked. The best offline guide to GTA VI&rsquo;s 55 trophies — official names, descriptions and grades, a checklist that saves in your browser, a roadmap to the platinum, and a guide to each trophy in our own words, with its sources named.</p>
+      <p class="subtitle">Every trophy, tracked — and planned. The offline guide to GTA VI&rsquo;s 55 trophies: official names, descriptions and grades, a checklist that saves in your browser, a Next-up planner that orders what to earn from your own progress, a roadmap to the platinum, and a guide to each trophy in our own words, with its sources named.</p>
     </div>
     <div class="progress-card" id="progressCard" aria-live="polite">
       <p class="progress-big"><span id="earnedCount">0</span><span class="progress-of"> / 55 earned</span></p>
       <div class="progress-bar" role="progressbar" aria-label="Trophies earned" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" id="progressBar"><span id="progressFill"></span></div>
       <p class="progress-grades" id="gradeCounts"></p>
       <p class="progress-next" id="nextUp"></p>
+      <p class="progress-queue" id="queueLine"></p>
     </div>
   </div>
   <nav class="tabs" aria-label="Sections">
     <a href="#/" data-route="" class="tab" id="tabTracker">Tracker</a>
+    <a href="#/planner" data-route="planner" class="tab" id="tabPlanner">Next-up Planner</a>
     <a href="#/roadmap" data-route="roadmap" class="tab" id="tabRoadmap">Roadmap to the Platinum</a>
     <a href="#/missables" data-route="missables" class="tab" id="tabMissables">Missables</a>
   </nav>
@@ -32,8 +35,8 @@
 <main>
   <section id="viewTracker" class="view">
     <div class="toolbar" role="search">
-      <label class="search-box">Search trophies
-        <input id="search" type="search" placeholder="Name, description or guide text…" autocomplete="off">
+      <label class="search-box">Search trophies and your notes
+        <input id="search" type="search" placeholder="Name, description, guide text or your notes…" autocomplete="off">
       </label>
       <label>Grade
         <select id="gradeFilter">
@@ -44,6 +47,20 @@
           <option value="bronze">Bronze</option>
         </select>
       </label>
+      <label>Chapter
+        <select id="chapterFilter">
+          <option value="all">All chapters</option>
+          <option value="Chapter 1">Chapter 1</option>
+          <option value="Chapter 2">Chapter 2</option>
+          <option value="Chapter 3">Chapter 3</option>
+          <option value="Chapter 4">Chapter 4</option>
+          <option value="Chapter 5">Chapter 5</option>
+          <option value="Final mission">Final mission</option>
+          <option value="After the story">After the story</option>
+          <option value="Any time">Any time</option>
+          <option value="Unconfirmed methods">Unconfirmed methods</option>
+        </select>
+      </label>
       <label>Show
         <select id="earnedFilter">
           <option value="all">All trophies</option>
@@ -51,6 +68,7 @@
           <option value="earned">Earned only</option>
         </select>
       </label>
+      <label class="check"><input id="missableToggle" type="checkbox"> Missables only</label>
       <label class="check"><input id="spoilerToggle" type="checkbox"> Hide story spoilers</label>
       <span class="toolbar-spacer"></span>
       <button id="exportBtn" type="button">Export progress</button>
@@ -67,8 +85,28 @@
     </div>
   </section>
 
+  <section id="viewPlanner" class="view" hidden>
+    <div class="toolbar planner-toolbar">
+      <label>Plan focus
+        <select id="focusSelect">
+          <option value="story">Follow the story</option>
+          <option value="quick">Quick wins first</option>
+          <option value="checklist">Chase the 100% checklist</option>
+          <option value="grind">Long grinds first</option>
+        </select>
+      </label>
+      <label>Hours you have played so far
+        <input id="hoursInput" type="number" min="0" step="1" inputmode="numeric" placeholder="e.g. 26">
+      </label>
+      <p class="planner-blurb">Your personal queue to the platinum, rebuilt from the trophies you tick off: prerequisites first, the missable window protected, every entry with its chapter, its typical time and the reason it sits where it sits. Tick trophies here or on the Tracker — the plan reorders itself.</p>
+    </div>
+    <div id="planSummary"></div>
+    <div id="plannerQueue"></div>
+  </section>
+
   <section id="viewRoadmap" class="view" hidden>
     <div class="facts-strip" id="factsStrip"></div>
+    <div id="etaPanel"></div>
     <div id="roadmapStages"></div>
   </section>
 
@@ -78,8 +116,8 @@
 </main>
 
 <footer>
-  <p>Names and descriptions are the official ones as PlayStation publishes them (Exophase / PSNProfiles, 18 Nov 2026). Every guide is written in this guide&rsquo;s own words from the sources named beside it — PowerPyx&rsquo;s GTA 6 Trophy Guide &amp; Roadmap first among them — and checked 19 Nov 2026. Five trophy methods were still unconfirmed at launch and are marked as such, not guessed.</p>
-  <p>This guide makes no network request: it loads only its own files, and the source links beside each guide open only when you follow them. No Rockstar Games logo, artwork or game screenshots are used. An unofficial fan guide, not affiliated with Rockstar Games or PlayStation.</p>
+  <p>Names and descriptions are the official ones as PlayStation publishes them (Exophase / PSNProfiles, 18 Nov 2026). Every guide is written in this guide&rsquo;s own words from the sources named beside it — PowerPyx&rsquo;s GTA 6 Trophy Guide &amp; Roadmap first among them — and checked 20 Nov 2026. Five trophy methods were still unconfirmed at launch and are marked as such, not guessed. Chapter windows and time estimates beside each trophy are this guide&rsquo;s own planning data, drawn from those same cited roadmaps.</p>
+  <p>This guide makes no network request: it loads only its own files, and the source links beside each guide open only when you follow them. Your progress, notes and planner settings never leave this browser except in a progress file you export yourself. No Rockstar Games logo, artwork or game screenshots are used. An unofficial fan guide, not affiliated with Rockstar Games or PlayStation.</p>
   <p class="foot-links">Sources: <a href="https://www.powerpyx.com/gta-6-grand-theft-auto-vi-trophy-guide-roadmap/">PowerPyx — GTA 6 Trophy Guide &amp; Roadmap</a> &middot; <a href="https://www.exophase.com/game/grand-theft-auto-vi-psn/trophies/">Exophase — GTA VI trophies</a> &middot; <a href="https://psnprofiles.com/trophies/43531-grand-theft-auto-vi">PSNProfiles — GTA VI trophies</a> &middot; <a href="https://www.keengamer.com/articles/guides/gta-6-trophy-guide-platinum-roadmap-all-55-trophies/">KeenGamer — GTA 6 Trophy Guide</a></p>
 </footer>
 <script type="module" src="js/app.js"></script>
